@@ -38,7 +38,7 @@ public class CoolWeatherDB {
     /**
      *获取CoolWeatherDB的实例
      */
-    public synchronized static CoolWeatherDB getCoolWeatherDB(Context context){
+    public synchronized static CoolWeatherDB getInstance(Context context){
         if(coolWeatherDB == null){
             coolWeatherDB = new CoolWeatherDB(context);
         }
@@ -62,8 +62,7 @@ public class CoolWeatherDB {
      */
     public List<Province> loadProvinces(){
         List<Province> list = new ArrayList<Province>();
-        Cursor cursor = null;
-        cursor = db.query("Province",null,null,null,null,null,null);//table ,colums,selection,selectionArgs,groupBy,orderBy
+        Cursor cursor = db.query("Province",null,null,null,null,null,null);//table ,colums,selection,selectionArgs,groupBy,orderBy
         if(cursor.moveToFirst()){
             do{
                 Province province = new Province();
@@ -96,8 +95,7 @@ public class CoolWeatherDB {
      */
     public List<City> loadCities(int provinceId){
         List<City> list = new ArrayList<City>();
-        Cursor cursor = null;
-        cursor = db.query("City",null,"provinceId = ?",new String[]{String.valueOf(provinceId)},null,null,null);
+        Cursor cursor = db.query("City",null,"province_id = ?",new String[]{String.valueOf(provinceId)},null,null,null);
         if(cursor.moveToFirst()){
             do{
                 City city = new City();
@@ -130,8 +128,7 @@ public class CoolWeatherDB {
      */
     public List<Country> loadCounties(int cityId){
         List<Country> list = new ArrayList<Country>();
-        Cursor cursor = null;
-        cursor = db.query("Country",null,"cityId = ?",new String[]{String.valueOf(cityId)},null,null,null);
+        Cursor cursor = db.query("Country",null,"city_id = ?",new String[]{String.valueOf(cityId)},null,null,null);
         if(cursor.moveToFirst()){
             do{
                 Country country = new Country();
@@ -147,5 +144,5 @@ public class CoolWeatherDB {
         }
         return list;
     }
-    
+
 }
